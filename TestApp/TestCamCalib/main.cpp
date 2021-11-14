@@ -29,6 +29,13 @@ int main()
       calibrator = std::make_unique<ky::DLT>(uv, xyz);
     else
       calibrator = std::make_unique<ky::Tsai>(uv, xyz, cv::Size(1024, 1024));
+
+    if (calibrator->Calibrate())
+    {
+      auto rms2d{ calibrator->RMS() };    // RMS of reprojection error.
+      auto rms3d{ calibrator->RMS3D() };  // RMS of point to ray distance.
+      auto K{ calibrator->K() };          // Camera matrix.
+    }
   }
   catch (const cv::Exception& ce)
   {
@@ -43,16 +50,7 @@ int main()
     std::cout << ex.what();
   }
 
-  if (calibrator->Calibrate())
-  {
-    auto rms2d{ calibrator->RMS() };    // RMS of reprojection error.
-    auto rms3d{ calibrator->RMS3D() };  // RMS of point to ray distance.
-    auto K{ calibrator->K() };          // Camera matrix.
-
-    return 0;
-  }
-  else
-    return 1;
+  return 0;
 }
 
 std::vector<float> loadData(const std::filesystem::path& _file)
