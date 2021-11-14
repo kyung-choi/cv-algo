@@ -149,11 +149,13 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\camcalib.cpp" />
     <ClCompile Include="..\..\src\dlt.cpp" />
+    <ClCompile Include="..\..\src\tsai.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\inc\camcalib.h" />
     <ClInclude Include="..\..\inc\dlt.h" />
+    <ClInclude Include="..\..\inc\tsai.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

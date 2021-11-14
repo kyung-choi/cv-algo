@@ -1,6 +1,7 @@
+#include "dlt.h"
+#include "tsai.h"
 #include <fstream>
 #include <filesystem>
-#include "DLT.h"
 
 std::vector<float> loadData(const std::filesystem::path& _file);
 std::vector<cv::Point2f> loadImgPts(const std::filesystem::path& _dir);
@@ -18,7 +19,29 @@ int main()
   std::vector<cv::Point2f> uv{ loadImgPts(dir) };
   std::vector<cv::Point3f> xyz{ loadObjPts(dir) };
 
-  std::unique_ptr<ky::CamCalib> calibrator{ std::make_unique<ky::DLT>(uv, xyz) };
+  // Camera calibration
+  bool DLT{ true };
+  std::unique_ptr<ky::CamCalib> calibrator{ nullptr };
+
+  try
+  {
+    if (DLT)
+      calibrator = std::make_unique<ky::DLT>(uv, xyz);
+    else
+      calibrator = std::make_unique<ky::Tsai>(uv, xyz, cv::Size(1024, 1024));
+  }
+  catch (const cv::Exception& ce)
+  {
+    std::cout << ce.what();
+  }
+  catch (const std::runtime_error& re)
+  {
+    std::cout << re.what();
+  }
+  catch (const std::exception& ex)
+  {
+    std::cout << ex.what();
+  }
 
   if (calibrator->Calibrate())
   {
