@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\choik\Documents\Misc\projects\TestApp\TestUnitQuat\main.cpp">
+    <ClCompile Include="C:\Users\choik\Documents\Misc\git\cv-algo\TestApp\TestUnitQuat\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\choik\Documents\Misc\projects\TestApp\TestUnitQuat\CMakeLists.txt" />
+    <CustomBuild Include="C:\Users\choik\Documents\Misc\git\cv-algo\TestApp\TestUnitQuat\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{8A98550A-6514-335A-8777-D8F6CAD68CD6}</UniqueIdentifier>
+      <UniqueIdentifier>{61811807-4B78-3052-8FB6-E066BED42A7D}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
