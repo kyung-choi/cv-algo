@@ -2,5 +2,6 @@
 This contains c++ implementation of a number of computer vision algorithms as in
 - Direct Linear Transformation
 - Tsai's camera calibration
-- Absolution orientation using unit quaternion
-- and more to come ...
+- Horn's absolution orientation using unit quaternion
+- Subpixel circular feature detection using quadratic surface fitting 
+- ...
