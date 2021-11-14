@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CamCalib.h"
+#include "camcalib.h"
 
 namespace ky
 {
