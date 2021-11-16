@@ -73,12 +73,24 @@ namespace pcl {
           ConstCloudIterator<PointTarget>& target_it,
           Matrix4& transformation_matrix) const;
 
+      /** \brief Implementation of Horn's absolute orientation using unit quaternion.
+       * \param[in] cloud_src_demean a mean subtracted source point cloud dataset
+       * \param[in] centroid_src a mean of source point cloud dataset
+       * \param[in] cloud_src_demean a mean subtracted target point cloud dataset
+       * \param[in] centroid_tgt a mean of target point cloud dataset
+       * \param[out] transformation_matrix the resultant transformation matrix
+       */
       void getTransformationFromUQ(const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>& cloud_src_demean,
         const Eigen::Matrix<Scalar, 4, 1>& centroid_src,
         const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>& cloud_tgt_demean,
         const Eigen::Matrix<Scalar, 4, 1>& centroid_tgt,
         Matrix4& transformation_matrix) const;
 
+      /** \brief Estimate a rotation invariant scale between mean subtracted source and a target
+       * \param[in] cloud_src_demean mean a subtracted source point cloud dataset
+       * \param[in] cloud_src_demean mean a subtracted target point cloud dataset
+       * \return Rotation invariant scale
+       */
       Scalar getScale(const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>& cloud_src_demean,
         const Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>& cloud_tgt_demean) const;
     };
