@@ -5,8 +5,7 @@
 namespace ky
 {
 	QuadFit::QuadFit(const int _maxIter, const double _converge, const double _maxCorr) :
-		m_maxIter(_maxIter), m_converge(_converge), m_maxCorr(_maxCorr), 
-		m_interpRate(4), m_basin(5) {}
+		m_maxIter(_maxIter), m_converge(_converge), m_maxCorr(_maxCorr) {}
 
 	void QuadFit::Detect(const cv::Mat& _img, std::vector<cv::KeyPoint>& _keyPts) 
 	{
@@ -18,13 +17,13 @@ namespace ky
 
 		auto op = [&imgBlur, &P, this](cv::KeyPoint keyPt)
 		{
-			int hw{ m_interpRate * m_basin / 2 }, iter{ 0 };
-			double change{ m_converge + 1.0 }, q[4], shift{ 0.5 }, step{ 1.0 / m_interpRate };
+			int hw{ interpRate * basin / 2 }, iter{ 0 };
+			double change{ m_converge + 1.0 }, q[4], shift{ 0.5 }, step{ 1.0 / interpRate };
 			double x{ keyPt.pt.x }, y{ keyPt.pt.y };
 
 			while (iter++ < m_maxIter && change > m_converge)
 			{
-				if (y < m_basin || x < m_basin || y + m_basin > imgBlur.rows || x + m_basin > imgBlur.cols)  // a border condition.
+				if (y < basin || x < basin || y + basin > imgBlur.rows || x + basin > imgBlur.cols)  // a border condition.
 					break;
 
 				auto alpha{ 0.0 }, beta{ 0.0 }, gamma{ 0.0 }, delta{ 0.0 }, eta{ 0.0 };
@@ -78,7 +77,7 @@ namespace ky
 		cv::Mat dst(_src.size(), CV_64FC1, cv::Scalar(0));
 		for (const auto& keyPt : _keyPts)
 		{
-			int N{ static_cast<int>(keyPt.size) < m_basin ? m_basin : static_cast<int>(keyPt.size) };
+			int N{ static_cast<int>(keyPt.size) < basin ? basin : static_cast<int>(keyPt.size) };
 			cv::Rect roi(static_cast<int>(keyPt.pt.x) - N, static_cast<int>(keyPt.pt.y) - N, N * 2, N * 2);
 			_src(roi).convertTo(dst(roi), CV_64FC1);
 			cv::GaussianBlur(dst(roi), dst(roi), cv::Size(), N * 0.25);  // sigma: half the radius
@@ -89,8 +88,8 @@ namespace ky
 
 	cv::Mat QuadFit::_NominalWindow() const
 	{
-		int hw{ m_interpRate * m_basin / 2 }, fw{ 2 * hw + 1 };
-		double step{ 1.0 / m_interpRate };
+		int hw{ interpRate * basin / 2 }, fw{ 2 * hw + 1 };
+		double step{ 1.0 / interpRate };
 		cv::Mat_<double> A(fw * fw, 6);
 		for (auto k{ 0 }, i{ -hw }; i <= hw; ++i)
 			for (auto j{ -hw }; j <= hw; ++j)

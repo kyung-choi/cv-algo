@@ -145,7 +145,6 @@ namespace pcl {
       Eigen::Matrix<Scalar, 3, 3> R = quat.toRotationMatrix();
       Eigen::Matrix<Scalar, 3, 1> t = centroid_tgt.block<3, 1>(0, 0) - scale * R * centroid_src.block<3, 1>(0, 0);
 
-      transformation_matrix = Eigen::Matrix<Scalar, 4, 4>::Identity();
       transformation_matrix.block<3, 3>(0, 0) = scale * R;
       transformation_matrix.block<3, 1>(0, 3) = t;
     }

@@ -30,8 +30,8 @@ namespace ky
 		double m_converge;
 		double m_maxCorr;
 
-		const int m_interpRate{ 4 };          // Surface interpolation rate.
-		const int m_basin{ 5 };               // The size of convergence basin in pixel.
+		inline static const int interpRate{ 4 };          // Surface interpolation rate.
+		inline static const int basin{ 5 };               // The size of convergence basin in pixel.
 
 		/**
 		* @brief Blur the region of each feature according to its size.
