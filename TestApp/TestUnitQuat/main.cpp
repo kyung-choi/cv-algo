@@ -4,6 +4,7 @@
 #include <pcl/registration/icp.h>
 #include <boost/filesystem.hpp>
 #include "transformation_estimation_uq.h"
+#include "pose_est_Lu.h"
 
 using namespace pcl::registration;
 
