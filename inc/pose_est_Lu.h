@@ -16,7 +16,7 @@ namespace ky
 		typedef pcl::PointCloud<XY> PointCloudXY;
 		typedef pcl::PointCloud<XYZ> PointCloudXYZ;
 
-		PoseEstLu() {};
+		PoseEstLu();
 
 		virtual ~PoseEstLu() {}
 

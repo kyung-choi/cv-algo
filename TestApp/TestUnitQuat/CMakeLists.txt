@@ -19,7 +19,6 @@ if( PCL_FOUND )
   include_directories( 
     ${PCL_INCLUDE_DIRS} 
     ${CMAKE_CURRENT_SOURCE_DIR}/../../inc 
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../src 
   )
 
   # [C/C++]>[Preprocessor]>[Preprocessor Definitions]
@@ -33,7 +32,5 @@ if( PCL_FOUND )
 
   # [Linker]>[Input]>[Additional Dependencies]
   target_link_libraries(TestUnitQuat ${PCL_LIBRARIES})  
-
-
 
 endif()

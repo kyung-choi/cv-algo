@@ -2,9 +2,8 @@
 
 namespace ky
 {
-	PoseEstLu::PoseEstLu() : m_fx(4500), m_fy(4500), m_ppx(512), m_ppy(512), m_maxIter(30), m_convergence(0.001f)
-	{
-	}
+	PoseEstLu::PoseEstLu() : 
+		m_fx(4500), m_fy(4500), m_ppx(512), m_ppy(512), m_maxIter(30), m_convergence(0.001f)	{}
 
 	void PoseEstLu::setFocalLength(const float _fx, const float _fy)
 	{
@@ -28,14 +27,15 @@ namespace ky
 		m_convergence = _convergence;
 	}
 
-	void PoseEstLu::estimatePose(const PointCloudXYZ& _model, const PointCloudXY& _uv, Matrix4f& _transformation) const
+	void PoseEstLu::estimatePose(const PointCloudXYZ& _model, 
+		const PointCloudXY& _uv, Matrix4f& _transformation) const
 	{
 		auto iter{ 0 };
 		auto convergence{ std::numeric_limits<float>::max() };
 		auto err{ std::numeric_limits<float>::max() }, errNew{ 0.f };
 
 		std::vector<Matrix3f, aligned_allocator<Matrix3f>> V(_uv.size(), Matrix3f::Identity());
-		for (size_t i{ 0 }; i < _uv.size(); ++i)
+		for (auto i{ 0 }; i < _uv.size(); ++i)
 			_projMat(_uv[i], V[i]);
 
 		pcl::registration::TransformationEstimationSVD<XYZ, XYZ> te;
@@ -99,6 +99,4 @@ namespace ky
 			_Vq.push_back(XYZ(w(0), w(1), w(2)));
 		}
 	}
-
-
 }
