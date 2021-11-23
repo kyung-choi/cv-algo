@@ -2,30 +2,8 @@
 
 namespace ky
 {
-	PoseEstLu::PoseEstLu() : 
-		m_fx(4500), m_fy(4500), m_ppx(512), m_ppy(512), m_maxIter(30), m_convergence(0.001f)	{}
-
-	void PoseEstLu::setFocalLength(const float _fx, const float _fy)
-	{
-		m_fx = _fx;
-		m_fy = _fy == 0 ? _fx : _fy;
-	}
-
-	void PoseEstLu::setPP(const float _ppx, const float _ppy)
-	{
-		m_ppx = _ppx;
-		m_ppy = _ppy;
-	}
-
-	void PoseEstLu::setMaxIter(const int _maxIter)
-	{
-		m_maxIter = _maxIter;
-	}
-
-	void PoseEstLu::setConvergence(const float _convergence)
-	{
-		m_convergence = _convergence;
-	}
+	PoseEstLu::PoseEstLu() : m_fx(4500), m_fy(4500), m_ppx(512), m_ppy(512), 
+		m_maxIter(30), m_convergence(0.001f)	{}
 
 	void PoseEstLu::estimatePose(const PointCloudXYZ& _model, 
 		const PointCloudUV& _uv, Matrix4f& _transformation) const
@@ -34,13 +12,14 @@ namespace ky
 		auto convergence{ std::numeric_limits<float>::max() };
 		auto err{ std::numeric_limits<float>::max() };
 
+		pcl::registration::TransformationEstimationSVD<XYZ, XYZ> te;
 		std::vector<Matrix3f, aligned_allocator<Matrix3f>> V(_uv.size(), Matrix3f::Identity());
+		PointCloudXYZ Vq;
+
 		for (auto i{ 0 }; i < _uv.size(); ++i)
 			_computeV(_uv[i], V[i]);
 
 		Matrix3f L{ _computeL(V) };
-		PointCloudXYZ Vq;
-		pcl::registration::TransformationEstimationSVD<XYZ, XYZ> te;
 
 		while (iter++ < m_maxIter && convergence > m_convergence)
 		{
@@ -53,6 +32,7 @@ namespace ky
 			err = errNew;
 		}
 	}
+
 	float PoseEstLu::_computeErr(const PointCloudXYZ& _p, const PointCloudXYZ& _Vq, 
 		const Matrix4f& _transformation) const
 	{
@@ -94,6 +74,7 @@ namespace ky
 		auto qIter{ q.begin() };
 		auto VIter{ _V.begin() };
 		_Vq.clear();
+		
 		for (; qIter != q.end(); ++qIter, ++VIter)
 		{
 			auto w{ *VIter * Vector3f(qIter->x, qIter->y, qIter->z) };
@@ -106,6 +87,7 @@ namespace ky
 	{
 		auto n{ _V.size() };
 		Matrix3f S = Matrix3f::Zero();
+
 		for (auto i{ 0 }; i < _V.size(); ++i)
 			S += _V[i];
 

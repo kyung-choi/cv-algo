@@ -20,13 +20,27 @@ namespace ky
 
 		virtual ~PoseEstLu() {}
 
-		void setFocalLength(const float _fx, const float _fy = 0);
+		void setFocalLength(const float _fx, const float _fy)
+		{
+			m_fx = _fx;
+			m_fy = _fy == 0 ? _fx : _fy;
+		}
 
-		void setPP(const float _ppx, const float _ppy);
+		void setPP(const float _ppx, const float _ppy)
+		{
+			m_ppx = _ppx;
+			m_ppy = _ppy;
+		}
 
-		void setMaxIter(const int _maxIter);
+		void setMaxIter(const int _maxIter)
+		{
+			m_maxIter = _maxIter;
+		}
 
-		void setConvergence(const float _convergence);
+		void setConvergence(const float _convergence)
+		{
+			m_convergence = _convergence;
+		}
 
 		void estimatePose(const PointCloudXYZ& _model, const PointCloudUV& _uv, 
 			Matrix4f& _transformation) const;
