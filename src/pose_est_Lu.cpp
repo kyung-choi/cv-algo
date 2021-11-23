@@ -32,31 +32,38 @@ namespace ky
 	{
 		auto iter{ 0 };
 		auto convergence{ std::numeric_limits<float>::max() };
-		auto err{ std::numeric_limits<float>::max() }, errNew{ 0.f };
+		auto err{ std::numeric_limits<float>::max() };
 
 		std::vector<Matrix3f, aligned_allocator<Matrix3f>> V(_uv.size(), Matrix3f::Identity());
 		for (auto i{ 0 }; i < _uv.size(); ++i)
 			_computeV(_uv[i], V[i]);
 
-		Matrix3f L;
-		_computeL(V, L);
-
+		Matrix3f L{ _computeL(V) };
+		PointCloudXYZ Vq;
 		pcl::registration::TransformationEstimationSVD<XYZ, XYZ> te;
-		PointCloudXYZ test, Vq;
+
 		while (iter++ < m_maxIter && convergence > m_convergence)
 		{
 			_computeT(_model, L, V, _transformation);
 			_computeVq(_model, V, Vq, _transformation);
 			te.estimateRigidTransformation(_model, Vq, _transformation);
-			pcl::transformPointCloud(_model, test, _transformation);
 
-			errNew = 0;
-			for (auto i{ 0 }; i < _model.size(); ++i)
-				errNew += pcl::squaredEuclideanDistance(test[i], Vq[i]);
-
+			auto errNew{ _computeErr(_model, Vq, _transformation) };
 			convergence = std::abs(err - errNew);
 			err = errNew;
 		}
+	}
+	float PoseEstLu::_computeErr(const PointCloudXYZ& _p, const PointCloudXYZ& _Vq, 
+		const Matrix4f& _transformation) const
+	{
+		float err{ 0 };
+		PointCloudXYZ q;
+		pcl::transformPointCloud(_p, q, _transformation);
+
+		for (auto i{ 0 }; i < _p.size(); ++i)
+			err += pcl::squaredEuclideanDistance(q[i], _Vq[i]);
+
+		return err;
 	}
 
 	void PoseEstLu::_computeV(const UV& _uv, Matrix3f& _V) const
@@ -94,14 +101,14 @@ namespace ky
 		}
 	}
 
-	void PoseEstLu::_computeL(const std::vector<Matrix3f, 
-		aligned_allocator<Matrix3f>> _V, Matrix3f& _L) const
+	Eigen::Matrix3f PoseEstLu::_computeL(const std::vector<Matrix3f, 
+		aligned_allocator<Matrix3f>> _V) const
 	{
 		auto n{ _V.size() };
 		Matrix3f S = Matrix3f::Zero();
 		for (auto i{ 0 }; i < _V.size(); ++i)
 			S += _V[i];
 
-		_L = (Matrix3f::Identity() - S / n).inverse() / n;
+		return (Matrix3f::Identity() - S / n).inverse() / n;
 	}
 }

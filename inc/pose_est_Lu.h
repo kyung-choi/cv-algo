@@ -28,7 +28,8 @@ namespace ky
 
 		void setConvergence(const float _convergence);
 
-		void estimatePose(const PointCloudXYZ& _model, const PointCloudUV& _uv, Matrix4f& _transformation) const;
+		void estimatePose(const PointCloudXYZ& _model, const PointCloudUV& _uv, 
+			Matrix4f& _transformation) const;
 
 	private:
 		float m_fx, m_fy, m_ppx, m_ppy;
@@ -45,6 +46,9 @@ namespace ky
 			const std::vector<Matrix3f, aligned_allocator<Matrix3f>> _V,
 			PointCloudXYZ& _Vq, const Matrix4f& _transformation) const;
 
-		void _computeL(const std::vector<Matrix3f, aligned_allocator<Matrix3f>> _V, Matrix3f& _L) const;
+		Matrix3f _computeL(const std::vector<Matrix3f, aligned_allocator<Matrix3f>> _V) const;
+
+		float _computeErr(const PointCloudXYZ& _p, const PointCloudXYZ& _Vq, 
+			const Matrix4f& _transformation) const;
 	};
 }
