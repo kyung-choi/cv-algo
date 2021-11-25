@@ -17,9 +17,10 @@ namespace pcl {
       virtual ~TransformationEstimationUQ() {};
 
       /** \brief Estimate a rigid rotation transformation between a source and a target
-       * point cloud using dual quaternion optimization \param[in] cloud_src the source
-       * point cloud dataset \param[in] cloud_tgt the target point cloud dataset \param[out]
-       * transformation_matrix the resultant transformation matrix
+       * point cloud using dual quaternion optimization 
+       \param[in] cloud_src the source point cloud dataset 
+       \param[in] cloud_tgt the target point cloud dataset 
+       \param[out] transformation_matrix the resultant transformation matrix
        */
       inline void estimateRigidTransformation(const pcl::PointCloud<PointSource>& cloud_src,
           const pcl::PointCloud<PointTarget>& cloud_tgt,
@@ -53,9 +54,10 @@ namespace pcl {
           Matrix4& transformation_matrix) const;
 
       /** \brief Estimate a rigid rotation transformation between a source and a target
-       * point cloud using dual quaternion optimization \param[in] cloud_src the source
-       * point cloud dataset \param[in] cloud_tgt the target point cloud dataset \param[in]
-       * correspondences the vector of correspondences between source and target point cloud
+       * point cloud using dual quaternion optimization 
+       * \param[in] cloud_src the source point cloud dataset 
+       * \param[in] cloud_tgt the target point cloud dataset 
+       * \param[in] correspondences the vector of correspondences between source and target point cloud
        * \param[out] transformation_matrix the resultant transformation matrix
        */
       void estimateRigidTransformation(const pcl::PointCloud<PointSource>& cloud_src,

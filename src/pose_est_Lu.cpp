@@ -3,7 +3,7 @@
 namespace ky
 {
 	PoseEstLu::PoseEstLu() : m_fx(4500), m_fy(4500), m_ppx(512), m_ppy(512), 
-		m_maxIter(30), m_convergence(0.001f)	{}
+		m_maxIter(50), m_convergence(0.01)	{}
 
 	void PoseEstLu::estimatePose(const PointCloudXYZ& _model, 
 		const PointCloudUV& _uv, Matrix4f& _transformation) const
@@ -14,12 +14,12 @@ namespace ky
 
 		pcl::registration::TransformationEstimationSVD<XYZ, XYZ> te;
 		std::vector<Matrix3f, aligned_allocator<Matrix3f>> V(_uv.size(), Matrix3f::Identity());
-		PointCloudXYZ Vq;
 
 		for (auto i{ 0 }; i < _uv.size(); ++i)
 			_computeV(_uv[i], V[i]);
 
 		Matrix3f L{ _computeL(V) };
+		PointCloudXYZ Vq;
 
 		while (iter++ < m_maxIter && convergence > m_convergence)
 		{
@@ -85,12 +85,12 @@ namespace ky
 	Eigen::Matrix3f PoseEstLu::_computeL(const std::vector<Matrix3f, 
 		aligned_allocator<Matrix3f>> _V) const
 	{
-		auto n{ _V.size() };
 		Matrix3f S = Matrix3f::Zero();
 
 		for (auto i{ 0 }; i < _V.size(); ++i)
 			S += _V[i];
 
+		auto n{ static_cast<float>(_V.size()) };
 		return (Matrix3f::Identity() - S / n).inverse() / n;
 	}
 }
