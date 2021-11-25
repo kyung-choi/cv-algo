@@ -4,6 +4,7 @@
 #include <pcl/registration/icp.h>
 #include <boost/filesystem.hpp>
 #include "transformation_estimation_uq.h"
+#include "pose_est_Lu.h"
 
 using namespace pcl::registration;
 
@@ -19,6 +20,8 @@ Eigen::Matrix4d getTransformation(const double _w, const double _x, const double
 
 int main ()
 {
+	ky::PoseEstLu poseEst;
+
 	// Setup a ground truth transformation
 	double qw{ 0.9988145 }, qx{ 0.0256408 }, qy{ -0.0395854 }, qz{ 0.0120474 };  // keep transformation envelop small 
 	double tx{ -4.9 }, ty{ 3.1 }, tz{ 2.4 }, scale{ 0.99 };                      // for ICP test.
