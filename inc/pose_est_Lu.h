@@ -64,40 +64,37 @@ namespace ky
 		 * \param[in] _model A set of 3d points of an object in model frame.
 		 * \param[in] _uv Corresponding image points of model.
 		 * \param[in, out] _transformation Initial guess of camera pose transformation.
+		 * \return Sum of squared orthogonal projection error.
 		 */
-		void estimatePose(const PointCloudXYZ& _model, const PointCloudUV& _uv,
-			Matrix4f& _transformation) const;
+		float estimatePose(const PointCloudXYZ& _model, const PointCloudUV& _uv,
+			Matrix4f& _transformation);
 
 	private:
 		float m_fx, m_fy, m_ppx, m_ppy;
 		float m_convergence;
 		int m_maxIter;
+		std::vector<Matrix3f, aligned_allocator<Matrix3f>> m_V;  // Array of projection matrice.
+		Matrix3f m_L;  // A pre-computed constant matrix in t(R)
 
 		/** \brief Compute projection matrix.
 		 * \param[in] _uv Detected image points of model.
-		 * \param[in, out] _V Projection operator.
 		 */
-		void _computeV(const UV& _uv, Matrix3f& _V) const;
+		void _computeV(const PointCloudUV& _uv);
 
 		/** \brief Compute translation using rotation matrix, t(R).
 		 * \param[in] _p A set of 3d points of an object in model frame.
-		 * \param[in] _L A pre-computed matrix used in the function.
-		 * \param[in] _V A set of pre-computed projection operators.
 		 * \param[in, out] _transformation 4x4 camera pose matrix to be updated.
 		 */
-		void _computeT(const PointCloudXYZ& _p, const Matrix3f& _L,
-			const std::vector<Matrix3f, aligned_allocator<Matrix3f>> _V,
-			Matrix4f& _transformation) const;
+		void _computeT(const PointCloudXYZ& _p, Matrix4f& _transformation) const;
 
-		void _computeVq(const PointCloudXYZ& _p,
-			const std::vector<Matrix3f, aligned_allocator<Matrix3f>> _V,
-			PointCloudXYZ& _Vq, const Matrix4f& _transformation) const;
+		void _computeVq(const PointCloudXYZ& _p, const Matrix4f& _transformation,
+			PointCloudXYZ& _Vq) const;
 
 		/** \brief Pre-compute a matrix, (I - 1/n*Sum(V))^(-1), to be used in t(R).
 		*/
-		Matrix3f _computeL(const std::vector<Matrix3f, aligned_allocator<Matrix3f>> _V) const;
+		void _computeL();
 
-		/** \brief Orthogonal projection error.
+		/** \brief Computes the sum of squared orthogonal projection error.
 		 * \param[in] _p A set of 3d points of an object in model frame.
 		 * \param[in] _Vq A set of 3d point of an object, which is transformed and projected.
 		 * \param[in] _transformation 4x4 camera pose matrix.
