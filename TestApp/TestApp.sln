@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestUnitQuat", "TestUnitQua
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestQuadFit", "TestQuadFit\TestQuadFit.vcxproj", "{6AC50E40-4200-407E-863D-1C89CB3ED7F9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCamPoseEst", "TestCamPoseEst\build\TestCamPoseEst.vcxproj", "{69EC2CFE-37BF-379B-95E9-405AA8F0677B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -65,6 +67,18 @@ Global
 		{6AC50E40-4200-407E-863D-1C89CB3ED7F9}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{6AC50E40-4200-407E-863D-1C89CB3ED7F9}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{6AC50E40-4200-407E-863D-1C89CB3ED7F9}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{69EC2CFE-37BF-379B-95E9-405AA8F0677B}.Debug|x64.ActiveCfg = Debug|x64
+		{69EC2CFE-37BF-379B-95E9-405AA8F0677B}.Debug|x64.Build.0 = Debug|x64
+		{69EC2CFE-37BF-379B-95E9-405AA8F0677B}.Debug|x86.ActiveCfg = Debug|x64
+		{69EC2CFE-37BF-379B-95E9-405AA8F0677B}.MinSizeRel|x64.ActiveCfg = MinSizeRel|x64
+		{69EC2CFE-37BF-379B-95E9-405AA8F0677B}.MinSizeRel|x64.Build.0 = MinSizeRel|x64
+		{69EC2CFE-37BF-379B-95E9-405AA8F0677B}.MinSizeRel|x86.ActiveCfg = MinSizeRel|x64
+		{69EC2CFE-37BF-379B-95E9-405AA8F0677B}.Release|x64.ActiveCfg = Release|x64
+		{69EC2CFE-37BF-379B-95E9-405AA8F0677B}.Release|x64.Build.0 = Release|x64
+		{69EC2CFE-37BF-379B-95E9-405AA8F0677B}.Release|x86.ActiveCfg = Release|x64
+		{69EC2CFE-37BF-379B-95E9-405AA8F0677B}.RelWithDebInfo|x64.ActiveCfg = RelWithDebInfo|x64
+		{69EC2CFE-37BF-379B-95E9-405AA8F0677B}.RelWithDebInfo|x64.Build.0 = RelWithDebInfo|x64
+		{69EC2CFE-37BF-379B-95E9-405AA8F0677B}.RelWithDebInfo|x86.ActiveCfg = RelWithDebInfo|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

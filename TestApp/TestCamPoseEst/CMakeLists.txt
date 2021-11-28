@@ -1,14 +1,14 @@
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 
-project(TestUnitQuat)
+project(TestCamPoseEst)
 
 set(SRC_FILES
-  ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/transformation_estimation_uq.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/transformation_estimation_uq.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/pose_est_Lu.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../src/pose_est_Lu.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
-add_executable(TestUnitQuat ${SRC_FILES})
+add_executable(TestCamPoseEst ${SRC_FILES})
 
 find_package(PCL 1.8 REQUIRED)
 
@@ -29,6 +29,6 @@ if( PCL_FOUND )
   link_directories( ${PCL_LIBRARY_DIRS} )
 
   # [Linker]>[Input]>[Additional Dependencies]
-  target_link_libraries(TestUnitQuat ${PCL_LIBRARIES})  
+  target_link_libraries(TestCamPoseEst ${PCL_LIBRARIES})  
 
 endif()
