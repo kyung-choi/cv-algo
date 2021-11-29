@@ -1,11 +1,5 @@
 #include "pose_est_Lu.h"
-
-using namespace pcl::registration;
-
-typedef pcl::PointUV UV;
-typedef pcl::PointCloud<UV> PointCloudUV;
-typedef pcl::PointXYZ XYZ;
-typedef pcl::PointCloud<XYZ> PointCloudXYZ;
+#include <pcl/registration/transforms.h>
 
 void addNoise(PointCloudUV::Ptr _pts, const float _level);
 
@@ -43,9 +37,7 @@ int main ()
 		addNoise(cloud_uv, detectErr);
 
 		// Estimate camera pose with noisy measurements and an initial guess.
-		ky::PoseEstLu poseEst;
-		poseEst.setFocalLength(fx, fy);
-		poseEst.setPP(ppx, ppy);
+		ky::PoseEstLu poseEst(fx, fy, ppx, ppy);
 		poseEst.estimatePose(*cloud_xyz, *cloud_uv, Rt_est);
 
 		std::cout << "estimated:\n" << Rt_est << std::endl;

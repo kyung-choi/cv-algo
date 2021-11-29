@@ -1,8 +1,6 @@
 #pragma once
 
-#include <pcl/registration/transformation_estimation_svd.h>
-#include <pcl/common/eigen.h>
-#include <pcl/common/distances.h>
+#include "pose_est.h"
 
 using namespace Eigen;
 
@@ -12,37 +10,12 @@ namespace ky
   * @brief Iterative camera pose estimation. Implementation is based on "Fast and Globally Convergent Pose
 	* Estimation from Video Images" - Lu, Hager, and Mjolsness
   */
-	class PoseEstLu
+	class PoseEstLu : public PoseEst
 	{
 	public:
-		typedef pcl::PointUV UV;
-		typedef pcl::PointXYZ XYZ;
-		typedef pcl::PointCloud<UV> PointCloudUV;
-		typedef pcl::PointCloud<XYZ> PointCloudXYZ;
-
-		PoseEstLu();
+		explicit PoseEstLu(const float _fx, const float _fy, const float _ppx, const float _ppy);
 
 		virtual ~PoseEstLu() {}
-
-		/** \brief Set camera focal length in pixel unit.
-		 * \param[in] _fx Focal length in x-axis using pixel unit.
-		 * \param[in] _fx Focal length in y-axis using pixel unit.
-		 */
-		void setFocalLength(const float _fx, const float _fy = 0)
-		{
-			m_fx = _fx;
-			m_fy = _fy == 0 ? _fx : _fy;
-		}
-
-		/** \brief Set principal point.
-		 * \param[in] _ppx Prinicipal point in x-axis using pixel unit.
-		 * \param[in] _ppx Prinicipal point in y-axis using pixel unit.
-		 */
-		void setPP(const float _ppx, const float _ppy)
-		{
-			m_ppx = _ppx;
-			m_ppy = _ppy;
-		}
 
 		/** \brief Set the maximum iteration.
 		 * \param[in] _maxIter The maximum iteration to perform before converged.
@@ -70,7 +43,6 @@ namespace ky
 			Matrix4f& _transformation);
 
 	private:
-		float m_fx, m_fy, m_ppx, m_ppy;
 		float m_convergence;
 		int m_maxIter;
 		std::vector<Matrix3f, aligned_allocator<Matrix3f>> m_V;  // Array of projection matrice.

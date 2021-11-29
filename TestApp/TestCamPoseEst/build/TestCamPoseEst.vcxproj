@@ -313,6 +313,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="C:\Users\choik\Documents\Misc\git\cv-algo\inc\pose_est.h" />
+    <ClCompile Include="C:\Users\choik\Documents\Misc\git\cv-algo\src\pose_est.cpp" />
     <ClInclude Include="C:\Users\choik\Documents\Misc\git\cv-algo\inc\pose_est_Lu.h" />
     <ClCompile Include="C:\Users\choik\Documents\Misc\git\cv-algo\src\pose_est_Lu.cpp" />
     <ClInclude Include="C:\Users\choik\Documents\Misc\git\cv-algo\inc\pose_est_Ansar.h" />

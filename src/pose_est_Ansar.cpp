@@ -2,10 +2,11 @@
 
 namespace ky
 {
-	PoseEstAnsar::PoseEstAnsar() : m_fx(4500), m_fy(4500), m_ppx(512), m_ppy(512) {}
+	PoseEstAnsar::PoseEstAnsar(const float _fx, const float _fy, const float _ppx, const float _ppy) : 
+		PoseEst(_fx, _fy, _ppx, _ppy) {}
 
-	float PoseEstAnsar::estimatePose(const pcl::PointCloud<pcl::PointXYZ>& _model,
-		const pcl::PointCloud<pcl::PointUV>& _uv, Matrix4f& _transformation)
+	float PoseEstAnsar::estimatePose(const PointCloudXYZ& _model,	
+		const PointCloudUV& _uv, Matrix4f& _transformation)
 	{
 		return 0;
 	}
