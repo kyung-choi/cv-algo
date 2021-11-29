@@ -4,12 +4,18 @@
     <ClCompile Include="C:\Users\choik\Documents\Misc\git\cv-algo\src\pose_est_Lu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\choik\Documents\Misc\git\cv-algo\src\pose_est_Ansar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\choik\Documents\Misc\git\cv-algo\TestApp\TestCamPoseEst\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\choik\Documents\Misc\git\cv-algo\inc\pose_est_Lu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\choik\Documents\Misc\git\cv-algo\inc\pose_est_Ansar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

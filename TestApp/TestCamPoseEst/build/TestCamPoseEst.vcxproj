@@ -315,6 +315,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClInclude Include="C:\Users\choik\Documents\Misc\git\cv-algo\inc\pose_est_Lu.h" />
     <ClCompile Include="C:\Users\choik\Documents\Misc\git\cv-algo\src\pose_est_Lu.cpp" />
+    <ClInclude Include="C:\Users\choik\Documents\Misc\git\cv-algo\inc\pose_est_Ansar.h" />
+    <ClCompile Include="C:\Users\choik\Documents\Misc\git\cv-algo\src\pose_est_Ansar.cpp" />
     <ClCompile Include="C:\Users\choik\Documents\Misc\git\cv-algo\TestApp\TestCamPoseEst\main.cpp" />
   </ItemGroup>
   <ItemGroup>

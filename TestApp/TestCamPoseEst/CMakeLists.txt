@@ -5,6 +5,8 @@ project(TestCamPoseEst)
 set(SRC_FILES
   ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/pose_est_Lu.h
   ${CMAKE_CURRENT_SOURCE_DIR}/../../src/pose_est_Lu.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/pose_est_Ansar.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../src/pose_est_Ansar.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
