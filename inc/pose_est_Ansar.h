@@ -20,7 +20,12 @@ namespace ky
 		 * \param[in, out] _transformation Initial guess of camera pose transformation.
 		 * \return Sum of squared orthogonal projection error.
 		 */
-		float estimatePose(const pcl::PointCloud<pcl::PointXYZ>& _model, 
-			const pcl::PointCloud<pcl::PointUV>& _uv,	Matrix4f& _transformation);
+		float estimatePose(const PointCloudXYZ& _model, 
+			const PointCloudUV& _uv,	Matrix4f& _transformation);
+
+	private:
+		MatrixXf m_M;
+
+		void _computeM(const PointCloudXYZ& _model,	const PointCloudUV& _uv);
 	};
 }

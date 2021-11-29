@@ -1,4 +1,5 @@
 #include "pose_est_Lu.h"
+#include "pose_est_Ansar.h"
 #include <pcl/registration/transforms.h>
 
 void addNoise(PointCloudUV::Ptr _pts, const float _level);
@@ -37,8 +38,8 @@ int main ()
 		addNoise(cloud_uv, detectErr);
 
 		// Estimate camera pose with noisy measurements and an initial guess.
-		ky::PoseEstLu poseEst(fx, fy, ppx, ppy);
-		poseEst.estimatePose(*cloud_xyz, *cloud_uv, Rt_est);
+		ky::PoseEstLu poseEstLu(fx, fy, ppx, ppy);
+		poseEstLu.estimatePose(*cloud_xyz, *cloud_uv, Rt_est);
 
 		std::cout << "estimated:\n" << Rt_est << std::endl;
 	}
