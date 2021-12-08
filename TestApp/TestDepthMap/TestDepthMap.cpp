@@ -9,7 +9,7 @@ float fx{ 2172.1f }, fy{ 2171.6f }, ppx{ 960.8f }, ppy{ 602.5f };
 // Image size.
 int width{ 1440 }, height{ 900 };
 // Depth range to display. 
-float depthMin{ 1450.f }, depthMax{ 1600.f };
+float depthMin{ 1400.f }, depthMax{ 1600.f };
 
 /**
 * @brief Contains depth data given image coordinate.
@@ -39,7 +39,7 @@ struct PointXYZ
 * (1) the camera frame origin is aligned to that of object frame.
 * (2) the optical axis is aligned to z-axis of object frame, but the direction is opposite.
 * In order to project points in object frame to camera, object point is expressed in camera frame as in,
-* [x;y;z]_cam = Rctc * [x; y; c]_obj
+* [x;y;z]_cam = Rctc * [x; y; z; 1]_obj
 * From (1), tc = [0; 0; 0]
 * From (2), Rc = [1, 0, 0; 0, -1, 0; 0, 0, -1]
 * Rctc is the transformation of object frame w.r.t. camera.
@@ -53,9 +53,9 @@ void PointCloudToDepthMap(std::vector<PointXYZ>& _points)
   std::vector<UVDepth> uvDepth(_points.size());
   auto op = [](const PointXYZ& pt)  // capturing global intrinsic and depth range variables.
   {
-    auto x{ pt.x }, y{ -pt.y }, z{ -pt.z };  // Equivalent to Rctc * [x; y; c]_obj
-    auto u{ static_cast<int>(std::round((fx * x + ppx * z) / z)) };
-    auto v{ static_cast<int>(std::round((fy * y + ppy * z) / z)) };
+    auto x{ pt.x }, y{ -pt.y }, z{ -pt.z };  // Equivalent to Rctc * [x; y; z; 1]_obj
+    auto u{ static_cast<int>(std::round((fx * x + ppx * z) / z)) };  // lambda*[u; v; 1] = K * [x; y; z]_cam
+    auto v{ static_cast<int>(std::round((fy * y + ppy * z) / z)) };  // The denominator is simplified according to the instruction.
     auto d{ std::clamp(pt.z, depthMin, depthMax) };  // Not mentioned in the instruction.
     d -= depthMin;                                   // Line 59, 60, 61: Depth normalization in order
     d *= UCHAR_MAX / (depthMax - depthMin);          // to display in 8-bit image.
@@ -65,12 +65,13 @@ void PointCloudToDepthMap(std::vector<PointXYZ>& _points)
   // Transform input 3d point to a pixel in depth map.
   std::transform(std::execution::par, _points.begin(), _points.end(), uvDepth.begin(), op);
 
-  // Diplay the result using OpenCV.
+  // Diplay the result using OpenCV. The default pixel value is 0; no associated point.
   cv::Mat_<uchar> depthMap(height, width, uchar(0));
   
   for (auto it{ uvDepth.begin() }; it != uvDepth.end(); ++it)
-    if (it->u >= 0 && it->v >= 0 && it->u < width && it->v < height)
-      depthMap(it->v, it->u) = it->depth;
+    if (it->u >= 0 && it->v >= 0 && it->u < width && it->v < height)  // boundary check
+      if (depthMap(it->v, it->u) < it->depth)  // handle occlusion
+        depthMap(it->v, it->u) = it->depth;
 
   cv::imshow("depth", depthMap);
   cv::waitKey(0);
