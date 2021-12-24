@@ -24,8 +24,10 @@ namespace ky
 			const PointCloudUV& _uv,	Matrix4f& _transformation);
 
 	private:
-		MatrixXf m_M;
+		MatrixXf m_M, m_K;
 
 		void _computeM(const PointCloudXYZ& _model,	const PointCloudUV& _uv);
+
+		void _computeK();
 	};
 }

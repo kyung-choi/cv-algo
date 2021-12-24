@@ -21,6 +21,10 @@ int main ()
 		Eigen::Matrix4f Rt;  // ground-truth camera pose.
 		generatePoseEstDataSet(fx, fy, ppx, ppy, *cloud_xyz, *cloud_uv, Rt);
 
+		ky::PoseEstAnsar ansar(fx, fy, ppx, ppy);
+		Eigen::Matrix4f estRt;  // ground-truth camera pose.
+		ansar.estimatePose(*cloud_xyz, *cloud_uv, estRt);
+
 		std::cout << "ground-truth:\n" << Rt << std::endl;
 
 		// Initial guess transformation and feature detection error range.
