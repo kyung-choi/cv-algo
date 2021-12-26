@@ -28,6 +28,6 @@ namespace ky
 
 		void _computeM(const PointCloudXYZ& _model,	const PointCloudUV& _uv);
 
-		void _computeK();
+		void _computeK(const size_t _npts);
 	};
 }
