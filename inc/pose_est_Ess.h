@@ -31,6 +31,7 @@ namespace ky
 		void _computeABX(const PointCloudXYZ& _model, const PointCloudUV& _uv);
 		void _5Points(VectorXf& _r);
 		void _6plusPoints(VectorXf& _r);
+		float _computeError(const PointCloudXYZ& _model, const PointCloudUV& _uv, const Matrix4f& _transformation);
 
 	};
 }

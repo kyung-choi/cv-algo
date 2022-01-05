@@ -1,6 +1,5 @@
 #include "pose_est_Ess.h"
-#include <pcl/common/distances.h>
-#include <map>
+#include <pcl/registration/transforms.h>
 
 namespace ky
 {
@@ -20,12 +19,14 @@ namespace ky
 		else
 			throw std::runtime_error("Number of input points > 4");
 
+		// Orthonormal rotation.
 		Matrix3f R;
 		R << r(0), r(1), r(2), r(3), r(4), r(5), r(6), r(7), r(8);
 		R.transposeInPlace();
 		JacobiSVD<MatrixXf> svd(R, ComputeThinU | ComputeThinV);
 		R = svd.matrixU() * svd.matrixV().transpose();
 
+		// translation using LS.
 		r << R(0, 0), R(1, 0), R(2, 0), R(0, 1), R(1, 1), R(2, 1), R(0, 2), R(1, 2), R(2, 2);
 		MatrixXf P{ m_B.completeOrthogonalDecomposition().pseudoInverse() };
 		MatrixXf t{ -P * m_A * r };
@@ -34,9 +35,26 @@ namespace ky
 		_transformation.block(0, 0, 3, 3) = R;
 		_transformation.block(0, 3, 3, 1) = t;
 
-		std::cout << _transformation << std::endl;
+		return _computeError(_model, _uv, _transformation);;
+	}
 
-		return 0;
+	float PoseEstEss::_computeError(const PointCloudXYZ& _model, const PointCloudUV& _uv, const Matrix4f& _transformation)
+	{
+		PointCloudXYZ::Ptr xyzc(new PointCloudXYZ);
+		pcl::transformPointCloud(_model, *xyzc, _transformation);
+
+		auto xyzIter = xyzc->begin();
+		auto uvIter = _uv.begin();
+
+		float rms{ 0 };
+		for (; xyzIter != _model.end(); ++xyzIter, ++uvIter)
+		{
+			auto u{ (m_fx * xyzIter->x + m_ppx * xyzIter->z) / xyzIter->z };
+			auto v{ (m_fy * xyzIter->y + m_ppy * xyzIter->z) / xyzIter->z };
+			rms += std::pow(uvIter->u - u, 2) + std::pow(uvIter->v - v, 2);
+		}
+
+		return std::sqrt(rms / _model.size());
 	}
 
 	void PoseEstEss::_computeABX(const PointCloudXYZ& _model, const PointCloudUV& _uv)
