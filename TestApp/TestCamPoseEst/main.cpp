@@ -1,5 +1,6 @@
 #include "pose_est_Lu.h"
 #include "pose_est_Ansar.h"
+#include "pose_est_Ess.h"
 #include <pcl/registration/transforms.h>
 
 void addNoise(PointCloudUV::Ptr _pts, const float _level);
@@ -14,16 +15,16 @@ int main ()
 	try
 	{
 		// Intrinsic camera parameters
-		float fx{ 4500 }, fy{ 4500 }, ppx{ 512 }, ppy{ 512 };
+		float fx{ 4500.f }, fy{ 4500.f }, ppx{ 512.f }, ppy{ 512.f };
 
 		PointCloudUV::Ptr cloud_uv(new PointCloudUV);  // ground-truth image coordinates.
 		PointCloudXYZ::Ptr cloud_xyz(new PointCloudXYZ);  // object points.
 		Eigen::Matrix4f Rt;  // ground-truth camera pose.
 		generatePoseEstDataSet(fx, fy, ppx, ppy, *cloud_xyz, *cloud_uv, Rt);
 
-		ky::PoseEstAnsar ansar(fx, fy, ppx, ppy);
+		ky::PoseEstEss ess(fx, fy, ppx, ppy);
 		Eigen::Matrix4f estRt;  // ground-truth camera pose.
-		ansar.estimatePose(*cloud_xyz, *cloud_uv, estRt);
+		ess.estimatePose(*cloud_xyz, *cloud_uv, estRt);
 
 		std::cout << "ground-truth:\n" << Rt << std::endl;
 
@@ -79,10 +80,12 @@ void generatePoseEstDataSet(const float _fx, const float _fy, const float _ppx, 
 
 	// some non-collinear model point.
 	_xyz.clear();
-	_xyz.points.emplace_back(-50,   0,  50);
-	_xyz.points.emplace_back(-70,  10,   0);
+	_xyz.points.emplace_back(-50, 0, 50);
+	_xyz.points.emplace_back(0,  10,   0);
 	_xyz.points.emplace_back( -5, -50, -10);
 	_xyz.points.emplace_back( 60,  20,  20);
+	_xyz.points.emplace_back(-15, -25, -5);
+//	_xyz.points.emplace_back(20, 80, 15);
 
 	PointCloudXYZ::Ptr xyzc(new PointCloudXYZ);
 	pcl::transformPointCloud(_xyz, *xyzc, _Rt);
