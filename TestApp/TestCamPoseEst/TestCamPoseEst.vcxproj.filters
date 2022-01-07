@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\kyung\Documents\Dev\cv-algo\src\pose_est_Lu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\kyung\Documents\Dev\cv-algo\src\pose_est_Ansar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\kyung\Documents\Dev\cv-algo\TestApp\TestCamPoseEst\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\kyung\Documents\Dev\cv-algo\inc\pose_est_Lu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\kyung\Documents\Dev\cv-algo\inc\pose_est_Ansar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\kyung\Documents\Dev\cv-algo\TestApp\TestCamPoseEst\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{0F331E96-1C7E-305D-A89D-6FFC29CAB8B5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{D03A5CFD-1650-30E6-9C99-9CC3A795591F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

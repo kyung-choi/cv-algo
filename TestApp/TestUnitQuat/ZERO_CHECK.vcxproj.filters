@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\kyung\Documents\Dev\cv-algo\TestApp\TestUnitQuat\CMakeFiles\a110856a4438179818925054aa4a858f\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{06083BCF-4685-366A-9C39-25718A8D9A1F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
