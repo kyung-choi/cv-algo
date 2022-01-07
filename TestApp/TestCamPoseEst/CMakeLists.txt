@@ -3,6 +3,10 @@ cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 project(TestCamPoseEst)
 
 set(SRC_FILES
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/pose_est.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../src/pose_est.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/pose_est_Ess.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../src/pose_est_Ess.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/pose_est_Lu.h
   ${CMAKE_CURRENT_SOURCE_DIR}/../../src/pose_est_Lu.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/pose_est_Ansar.h

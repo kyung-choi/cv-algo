@@ -1,9 +1,15 @@
 #include "pose_est_Lu.h"
+#include <pcl/registration/transformation_estimation_svd.h>
+#include <pcl/common/distances.h>
 
 namespace ky
 {
-	PoseEstLu::PoseEstLu() : m_fx(4500), m_fy(4500), m_ppx(512), m_ppy(512), 
-		m_maxIter(50), m_convergence(0.01)	{}
+	PoseEstLu::PoseEstLu(const float _fx, const float _fy, const float _ppx, const float _ppy) :
+		PoseEst(_fx, _fy, _ppx, _ppy) 
+	{
+		m_maxIter = 50; 
+		m_convergence = 0.01;
+	}
 
 	float PoseEstLu::estimatePose(const PointCloudXYZ& _model, 
 		const PointCloudUV& _uv, Matrix4f& _transformation)

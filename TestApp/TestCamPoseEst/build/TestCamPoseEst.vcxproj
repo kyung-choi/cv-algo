@@ -99,8 +99,9 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;BOOST_ALL_NO_LIB-DBOOST_ALL_NO_LIB;__SSE4_2__;__SSE4_1__;__SSSE3__;__SSE3__;__SSE2__;__SSE__;BOOST_ALL_NO_LIB;BOOST_SYSTEM_NO_LIB;BOOST_FILESYSTEM_NO_LIB;BOOST_ATOMIC_NO_LIB;BOOST_DATE_TIME_NO_LIB;BOOST_IOSTREAMS_NO_LIB;BOOST_SERIALIZATION_NO_LIB;kiss_fft_scalar=double;KISSFFT_DLL_IMPORT=1;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;DBOOST_ALL_NO_LIB;__SSE4_2__;__SSE4_1__;__SSSE3__;__SSE3__;__SSE2__;__SSE__;BOOST_ALL_NO_LIB;BOOST_SYSTEM_NO_LIB;BOOST_FILESYSTEM_NO_LIB;BOOST_ATOMIC_NO_LIB;BOOST_DATE_TIME_NO_LIB;BOOST_IOSTREAMS_NO_LIB;BOOST_SERIALIZATION_NO_LIB;kiss_fft_scalar=double;KISSFFT_DLL_IMPORT=1;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;BOOST_ALL_NO_LIB-DBOOST_ALL_NO_LIB;__SSE4_2__;__SSE4_1__;__SSSE3__;__SSE3__;__SSE2__;__SSE__;BOOST_ALL_NO_LIB;BOOST_SYSTEM_NO_LIB;BOOST_FILESYSTEM_NO_LIB;BOOST_ATOMIC_NO_LIB;BOOST_DATE_TIME_NO_LIB;BOOST_IOSTREAMS_NO_LIB;BOOST_SERIALIZATION_NO_LIB;kiss_fft_scalar=double;KISSFFT_DLL_IMPORT=1;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
@@ -141,7 +142,7 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BOOST_ALL_NO_LIB-DBOOST_ALL_NO_LIB;__SSE4_2__;__SSE4_1__;__SSSE3__;__SSE3__;__SSE2__;__SSE__;BOOST_ALL_NO_LIB;BOOST_SYSTEM_NO_LIB;BOOST_FILESYSTEM_NO_LIB;BOOST_ATOMIC_NO_LIB;BOOST_DATE_TIME_NO_LIB;BOOST_IOSTREAMS_NO_LIB;BOOST_SERIALIZATION_NO_LIB;kiss_fft_scalar=double;KISSFFT_DLL_IMPORT=1;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BOOST_ALL_NO_LIB;__SSE4_2__;__SSE4_1__;__SSSE3__;__SSE3__;__SSE2__;__SSE__;BOOST_SYSTEM_NO_LIB;BOOST_FILESYSTEM_NO_LIB;BOOST_ATOMIC_NO_LIB;BOOST_DATE_TIME_NO_LIB;BOOST_IOSTREAMS_NO_LIB;BOOST_SERIALIZATION_NO_LIB;kiss_fft_scalar=double;KISSFFT_DLL_IMPORT=1;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
@@ -317,6 +318,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="C:\Users\kyung\Documents\Dev\cv-algo\inc\pose_est.h" />
+    <ClCompile Include="C:\Users\kyung\Documents\Dev\cv-algo\src\pose_est.cpp" />
+    <ClInclude Include="C:\Users\kyung\Documents\Dev\cv-algo\inc\pose_est_Ess.h" />
+    <ClCompile Include="C:\Users\kyung\Documents\Dev\cv-algo\src\pose_est_Ess.cpp" />
     <ClInclude Include="C:\Users\kyung\Documents\Dev\cv-algo\inc\pose_est_Lu.h" />
     <ClCompile Include="C:\Users\kyung\Documents\Dev\cv-algo\src\pose_est_Lu.cpp" />
     <ClInclude Include="C:\Users\kyung\Documents\Dev\cv-algo\inc\pose_est_Ansar.h" />
