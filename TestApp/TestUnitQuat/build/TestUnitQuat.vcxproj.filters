@@ -1,27 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\choik\Documents\Misc\git\cv-algo\TestApp\TestUnitQuat\main.cpp">
+    <ClCompile Include="C:\Users\kyung\Documents\Dev\cv-algo\TestApp\TestUnitQuat\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\choik\Documents\Misc\git\cv-algo\inc\transformation_estimation_uq.h">
+    <ClInclude Include="C:\Users\kyung\Documents\Dev\cv-algo\inc\transformation_estimation_uq.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\choik\Documents\Misc\git\cv-algo\inc\transformation_estimation_uq.hpp">
+    <ClInclude Include="C:\Users\kyung\Documents\Dev\cv-algo\inc\transformation_estimation_uq.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\choik\Documents\Misc\git\cv-algo\TestApp\TestUnitQuat\CMakeLists.txt" />
+    <CustomBuild Include="C:\Users\kyung\Documents\Dev\cv-algo\TestApp\TestUnitQuat\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{B71F92C2-49FD-3EBD-9F57-617CE302CDA1}</UniqueIdentifier>
+      <UniqueIdentifier>{F55808B2-2659-3431-AD29-4C050E5BC9CB}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{61811807-4B78-3052-8FB6-E066BED42A7D}</UniqueIdentifier>
+      <UniqueIdentifier>{16D5DE4F-36B9-3653-9408-F6CF2B144972}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

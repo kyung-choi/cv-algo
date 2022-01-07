@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="C:\Users\choik\Documents\Misc\git\cv-algo\TestApp\TestCamPoseEst\build\CMakeFiles\ce04fbd606f4e1df6a82c17a775ac9cd\generate.stamp.rule">
+    <CustomBuild Include="C:\Users\kyung\Documents\Dev\cv-algo\TestApp\TestCamPoseEst\build\CMakeFiles\436afda0a23d81cf00be3bb9a9160b14\generate.stamp.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{B231A384-C030-3CB1-AC07-09C43A1866C7}</UniqueIdentifier>
+      <UniqueIdentifier>{A7638B0D-9C2F-3D3E-9C04-766BA3DCE6B1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
