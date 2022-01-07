@@ -22,9 +22,17 @@ int main ()
 		Eigen::Matrix4f Rt;  // ground-truth camera pose.
 		generatePoseEstDataSet(fx, fy, ppx, ppy, *cloud_xyz, *cloud_uv, Rt);
 
-		ky::PoseEstEss ess(fx, fy, ppx, ppy);
 		Eigen::Matrix4f estRt;  // ground-truth camera pose.
-		ess.estimatePose(*cloud_xyz, *cloud_uv, estRt);
+
+		if (cloud_xyz->size() > 4)
+		{
+			ky::PoseEstEss ess(fx, fy, ppx, ppy);
+			ess.estimatePose(*cloud_xyz, *cloud_uv, estRt);
+		}
+
+		estRt = Matrix4f::Identity();
+		ky::PoseEstAnsar ansar(fx, fy, ppx, ppy);
+		ansar.estimatePose(*cloud_xyz, *cloud_uv, estRt);
 
 		std::cout << "ground-truth:\n" << Rt << std::endl;
 
@@ -84,8 +92,10 @@ void generatePoseEstDataSet(const float _fx, const float _fy, const float _ppx, 
 	_xyz.points.emplace_back(0,  10,   0);
 	_xyz.points.emplace_back( -5, -50, -10);
 	_xyz.points.emplace_back( 60,  20,  20);
-	_xyz.points.emplace_back(-15, -25, -5);
+//	_xyz.points.emplace_back(-15, -25, -5);
 //	_xyz.points.emplace_back(20, 80, 15);
+	_xyz.width = _xyz.size();
+	_xyz.height = 1;
 
 	PointCloudXYZ::Ptr xyzc(new PointCloudXYZ);
 	pcl::transformPointCloud(_xyz, *xyzc, _Rt);

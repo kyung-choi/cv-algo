@@ -47,7 +47,7 @@ namespace ky
 		auto uvIter = _uv.begin();
 
 		float rms{ 0 };
-		for (; xyzIter != _model.end(); ++xyzIter, ++uvIter)
+		for (; xyzIter != xyzc->end(); ++xyzIter, ++uvIter)
 		{
 			auto u{ (m_fx * xyzIter->x + m_ppx * xyzIter->z) / xyzIter->z };
 			auto v{ (m_fy * xyzIter->y + m_ppy * xyzIter->z) / xyzIter->z };

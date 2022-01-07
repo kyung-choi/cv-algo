@@ -1,4 +1,5 @@
 #include "pose_est_Ansar.h"
+#include <pcl/registration/transformation_estimation_svd.h>
 #include <map>
 
 namespace ky
@@ -10,18 +11,35 @@ namespace ky
 		const PointCloudUV& _uv, Matrix4f& _transformation)
 	{
 		PointCloudXYZ depth;
-		_computeM(_model, _uv);     // Developing geometric constraints.
+		_computeM(_model, _uv);     // Imposing geometric constraints.
 		_computeV(_uv.size());      // V: null basis
 		_computeK(_uv.size());      // K: coefficient matrix to discover multiplier of V(:,i)
 		_computeLambda();           // Lambda: A vector of coefficient associated to each null basis.
 		_computeDepth(_uv, depth);  // Recovering depth from null space analysis.
 
+		pcl::registration::TransformationEstimation<XYZ, XYZ>::Ptr te(new pcl::registration::TransformationEstimationSVD<XYZ, XYZ>);
+		te->estimateRigidTransformation(_model, depth, _transformation);
+
 		return 0;
 	}
 
-	void PoseEstAnsar::_computeDepth(const PointCloudUV& _uv, PointCloudXYZ& _depth)
+	void PoseEstAnsar::_computeDepth(const PointCloudUV& _uv, PointCloudXYZ& _xyzc)
 	{
-		;
+		auto n{ _uv.size() };
+		VectorXf x(m_V.rows());
+		x.setZero();
+		for (auto i{ 0 }; i < m_V.cols(); ++i)
+			x += m_lambda(i) * m_V.col(i);
+
+		x /= x(x.size() - 1);
+
+		_xyzc.clear();
+		for (auto i{ 0 }; i < n; ++i)
+		{
+			auto depth{ std::sqrt(std::abs(x(n * (n - 1) / 2 + i))) };
+			auto xc{ (_uv[i].u - m_ppx) / m_fx }, yc{ (_uv[i].v - m_ppy) / m_fy };
+			_xyzc.emplace_back(xc * depth, yc * depth, depth);
+		}
 	}
 
 	void PoseEstAnsar::_computeM(const PointCloudXYZ& _model, const PointCloudUV& _uv)
