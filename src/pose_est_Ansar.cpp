@@ -26,7 +26,7 @@ namespace ky
 	void PoseEstAnsar::_computeDepth(const PointCloudUV& _uv, PointCloudXYZ& _xyzc)
 	{
 		auto n{ _uv.size() };
-		VectorXf x(m_V.rows());
+		VectorXd x(m_V.rows());
 		x.setZero();
 		for (auto i{ 0 }; i < m_V.cols(); ++i)
 			x += m_lambda(i) * m_V.col(i);
@@ -36,7 +36,7 @@ namespace ky
 		_xyzc.clear();
 		for (auto i{ 0 }; i < n; ++i)
 		{
-			auto depth{ std::sqrt(std::abs(x(n * (n - 1) / 2 + i))) };
+			auto depth{ static_cast<float>(std::sqrt(std::abs(x(n * (n - 1) / 2 + i)))) };
 			auto xc{ (_uv[i].u - m_ppx) / m_fx }, yc{ (_uv[i].v - m_ppy) / m_fy };
 			_xyzc.emplace_back(xc * depth, yc * depth, depth);
 		}
@@ -45,14 +45,14 @@ namespace ky
 	void PoseEstAnsar::_computeM(const PointCloudXYZ& _model, const PointCloudUV& _uv)
 	{
 		auto n{ _model.size() };  // n >= 4
-		m_M = MatrixXf::Zero(n * (n - 1) / 2, n * (n + 1) / 2 + 1);
+		m_M = MatrixXd::Zero(n * (n - 1) / 2, n * (n + 1) / 2 + 1);
 
 		for (auto k{ 0 }, i{ 0 }; i < n - 1; ++i)
 		{
-			Vector3f pi((_uv[i].u - m_ppx) / m_fx, (_uv[i].v - m_ppy) / m_fy, 1);
+			Vector3d pi((_uv[i].u - m_ppx) / m_fx, (_uv[i].v - m_ppy) / m_fy, 1);
 			for (auto j{ i + 1 }; j < n; ++j)
 			{
-				Vector3f pj((_uv[j].u - m_ppx) / m_fx, (_uv[j].v - m_ppy) / m_fy, 1);
+				Vector3d pj((_uv[j].u - m_ppx) / m_fx, (_uv[j].v - m_ppy) / m_fy, 1);
 
 				m_M(k, k) = -2 * pi.dot(pj);
 				m_M(k, n * (n - 1) / 2 + i) = pi.dot(pi);
@@ -68,9 +68,9 @@ namespace ky
 
 	void PoseEstAnsar::_computeLambda()
 	{
-		JacobiSVD<MatrixXf> svd(m_K, ComputeThinU | ComputeThinV);
-		VectorXf lab{ svd.matrixV().col(m_K.cols() - 1) };
-		VectorXf lambda(m_V.cols());
+		JacobiSVD<MatrixXd> svd(m_K, ComputeThinU | ComputeThinV);
+		VectorXd lab{ svd.matrixV().col(m_K.cols() - 1) };
+		VectorXd lambda(m_V.cols());
 		if (lab(0) < 0) { lab = -lab; }
 
 		auto k{ m_V.cols() };
@@ -86,15 +86,15 @@ namespace ky
 
 	void PoseEstAnsar::_computeV(const size_t n)
 	{
-		Eigen::FullPivHouseholderQR<MatrixXf> qr;
+		Eigen::FullPivHouseholderQR<MatrixXd> qr;
 		qr.compute(m_M.transpose());
-		MatrixXf Q{ qr.matrixQ() };
+		MatrixXd Q{ qr.matrixQ() };
 		m_V = Q.block(0, Q.cols() - (n + 1), Q.rows(), n + 1);  // V: Ker(M)
 	}
 
 	void PoseEstAnsar::_computeK(const size_t n)
 	{
-		m_K = MatrixXf(n * n * (n - 1) / 2, (n + 1) * (n + 2) / 2);
+		m_K = MatrixXd(n * n * (n - 1) / 2, (n + 1) * (n + 2) / 2);
 
 		std::vector<std::vector<size_t> > iijk, ijik;
 		for (size_t i{ 0 }; i < n; ++i)
