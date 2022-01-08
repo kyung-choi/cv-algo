@@ -1,5 +1,5 @@
 #include "pose_est_Ansar.h"
-#include <pcl/registration/transformation_estimation_svd.h>
+#include "transformation_estimation_uq.h"
 #include <map>
 
 namespace ky
@@ -17,7 +17,7 @@ namespace ky
 		_computeLambda();           // Lambda: A vector of coefficient associated to each null basis.
 		_computeDepth(_uv, depth);  // Recovering depth from null space analysis.
 
-		pcl::registration::TransformationEstimation<XYZ, XYZ>::Ptr te(new pcl::registration::TransformationEstimationSVD<XYZ, XYZ>);
+		pcl::registration::TransformationEstimation<XYZ, XYZ>::Ptr te(new pcl::registration::TransformationEstimationUQ<XYZ, XYZ>);
 		te->estimateRigidTransformation(_model, depth, _transformation);
 
 		return 0;
